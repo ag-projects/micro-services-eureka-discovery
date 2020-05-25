@@ -1,0 +1,70 @@
+server:
+    port: 8011
+
+spring:
+    application:
+        name: zuul
+    rabbitmq:
+        host: localhost
+        port: 5672
+        username: guest
+        password: guest
+
+eureka:
+    client:
+        service-url:
+            defaultZone : http://localhost:8010/eureka
+
+hystrix:
+    command:
+        default:
+            execution:
+                timeout:
+                    enabled: false
+
+ribbon:
+    ReadTimeout: 100000
+    ConnectTimeout: 100000
+
+zuul:
+    host:
+        connect-timeout-millis: 60000 # starting the connection
+        socket-timeout-millis: 60000  # monitor the continuous incoming data flow
+
+api:
+    login:
+        url:
+            path: /user-service/users/login
+
+    registration:
+        url:
+            path: /user-service/users
+
+    h2console:
+        url:
+            path: /user-service/h2-console/**
+
+    zuul:
+        actuator:
+            url:
+                path: /actuator/*
+
+    users:
+        actuator:
+            url:
+                path: /user-service/actuator/*
+
+authorization:
+    token:
+        header:
+            name: Authorization
+            prefix: Bearer
+
+token:
+    secret: askh344lvjsm2kjh7kjh9lj2jl5nbf1lpf04bnhytfklawe
+
+management:
+    endpoints:
+        web:
+            exposure:
+                include: beans, health, routes, httptrace
